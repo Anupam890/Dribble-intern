@@ -28,7 +28,6 @@ const DribbleOption = () => {
             <FontAwesomeIcon icon={faGreaterThan} />
           </Link>
         </div>
-       
       </div>
     </>
   );

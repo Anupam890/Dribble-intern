@@ -7,10 +7,11 @@ import DribbleOption from "./components/DribbleOption";
 function App() {
   return (
     <Router>
-      <Navbar/>
+      {/* <Navbar /> Navbar should be outside the Routes */}
       <Routes>
-        {/* <Route path="/" element={<DribbleOption />} />
-        <Route path="/setup" element={<ProfileSetup />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="setup/*" element={<ProfileSetup />} />
+        <Route path="next" element={<DribbleOption />} />
       </Routes>
     </Router>
   );

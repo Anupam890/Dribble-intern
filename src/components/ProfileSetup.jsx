@@ -88,7 +88,9 @@ const ProfileSetup = () => {
               isLocationEntered ? "bg-[#EA4B8B]" : "bg-[#FADCEA]"
             }`}
           >
-            Next
+            <Link to={"next"}>
+              Next
+            </Link>
           </button>
           <p className="text-[#9D9EA6]">
             or <Link to={"/"}>Press RETURN</Link>
