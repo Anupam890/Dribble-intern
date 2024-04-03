@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import dribble from "../components/assets/dribble.png";
-
-
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -29,16 +27,9 @@ const Home = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center">
+    <div className="w-full min-h-screen flex flex-col md:flex-row items-center">
       {/* Left Part */}
-      <div className="left-div w-1/3 h-screen bg-[#F2D184] relative">
-        {/* <video
-          src="https://cdn.dribbble.com/uploads/48292/original/30fd1f7b63806eff4db0d4276eb1ac45.mp4?1689187515"
-          className="w-full h-screen border-none"
-          loop
-          muted
-          autoPlay
-        ></video> */}
+      <div className="left-div md:w-1/3 h-screen bg-[#F2D184] relative">
         <h2 className="absolute top-0 left-0 text-4xl font-bold p-4">
           <img src={dribble} alt="logo" className="w-15 h-10" />
         </h2>
@@ -51,7 +42,7 @@ const Home = () => {
       </div>
 
       {/* Right Part */}
-      <div className="right-div w-2/3 py-8 px-52">
+      <div className="right-div md:w-2/3 py-8 px-5 md:px-10 lg:px-20 xl:px-32 flex-grow">
         <div className="upperDiv mb-8">
           <p className="text-sm text-right">
             Already a member?{" "}
@@ -65,8 +56,8 @@ const Home = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* form validation error */}
 
-            <div className="flex justify-between space-x-4">
-              <div className="w-1/2">
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+              <div className="w-full md:w-1/2">
                 <label htmlFor="name" className="block text-sm font-semibold">
                   Name
                 </label>
@@ -77,10 +68,10 @@ const Home = () => {
                   name="name"
                   value={name}
                   onChange={handleChange}
-                  className="w-full border p-2 rounded"
+                  className="w-full border p-2 rounded-md outline-none bg-[#F3F3F3] text-[#B6B6B8]"
                 />
               </div>
-              <div className="w-1/2">
+              <div className="w-full md:w-1/2">
                 <label
                   htmlFor="username"
                   className="block text-sm font-semibold"
@@ -94,7 +85,7 @@ const Home = () => {
                   name="username"
                   value={username}
                   onChange={handleChange}
-                  className="w-full border p-2 rounded"
+                  className="w-full border p-2 rounded-md bg-[#F3F3F3] text-[#B6B6B8]"
                 />
               </div>
             </div>
@@ -109,7 +100,7 @@ const Home = () => {
                 name="email"
                 value={email}
                 onChange={handleChange}
-                className="w-full border p-2 rounded"
+                className="w-full border p-2 rounded-md bg-[#F3F3F3] text-[#B6B6B8]"
               />
             </div>
             <div>
@@ -118,12 +109,12 @@ const Home = () => {
               </label>
               <input
                 type="password"
-                placeholder="Password (6+ Characters)"
+                placeholder="6+ Characters"
                 id="password"
                 name="password"
                 value={password}
                 onChange={handleChange}
-                className="w-full border p-2 rounded"
+                className="w-full border p-2 rounded-md bg-[#F3F3F3] text-[#B6B6B8]"
               />
             </div>
             <div>
@@ -143,7 +134,9 @@ const Home = () => {
               className="bg-[#EA4B8B] text-white px-4 py-2 rounded hover:bg-[#FF85AB]"
               type="submit"
             >
-              Create Account
+             <Link to={"/setup"}>
+             Create Account
+             </Link>
             </button>
             <p>The site is protected with reCAPTCHA and Google</p>
           </form>

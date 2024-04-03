@@ -1,20 +1,102 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dribblePink from "../components/assets/dribblePink.png";
-import React from "react";
-import {useState} from "react";
 
-export const ProfileSetup = ()=>{
-    return(
-        <>
-        <div className="flex flex-col justify-center items-center mt-16 w-full h-screen">
-            <div className="left w-1/4 h-screen ">
+const ProfileSetup = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isLocationEntered, setIsLocationEntered] = useState(false);
 
-                <img src={dribblePink} alt="logo" className="w-8 h-8" />
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSelectedImage(reader.result);
+    };
+  };
 
+  const handleLocationChange = (e) => {
+    setIsLocationEntered(e.target.value.trim() !== "");
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen flex-col relative">
+      <div className="top-nav flex items-start absolute top-0 left-10">
+        <img src={dribblePink} alt="logo" className="w-30 h-20" />
+      </div>
+      <div className="profile-container w-full max-w-lg p-4">
+        <div className="profile-setup ">
+          <h1 className="text-3xl font-bold mb-4">
+            Welcome! Let's create your profile
+          </h1>
+          <p className="text-gray-600 mb-6">
+            Let others get to know you better! You can do these later
+          </p>
+          <div className="image mb-6">
+            <div className="flex justify-around items-center">
+              <div className="left-cont">
+                <h2 className="text-xl font-bold mb-2">Add an avatar</h2>
+                <div className="image-container w-32 h-32 rounded-full border-dotted border-[#9D9EA6] border-2 relative">
+                  {selectedImage ? (
+                    <img
+                      src={selectedImage}
+                      alt="Selected Avatar"
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <div className="camera-icon flex justify-center items-center w-full h-full absolute top-0 left-0">
+                      <FontAwesomeIcon
+                        icon={faCamera}
+                        className="text-2xl text-[#9D9EA6]"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="right-cont">
+                <label
+                  htmlFor="avatar"
+                  className="btn py-2 px-4 border-solid cursor-pointer font-bold border-2 rounded-md"
+                >
+                  Choose image
+                </label>
+                <input
+                  type="file"
+                  id="avatar"
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
+                <span className="text-gray-600 block mt-2">
+                  Or choose one of our defaults
+                </span>
+              </div>
             </div>
-            
+          </div>
+          <div className="location-cont mb-6">
+            <h2 className="text-xl font-bold mb-2">Add your location</h2>
+            <input
+              type="text"
+              placeholder="Enter a location"
+              className="border-gray-300 rounded p-2 w-full border-b-2 outline-none"
+              onChange={handleLocationChange}
+            />
+          </div>
+          <button
+            className={`btn py-2 px-20 rounded text-white ${
+              isLocationEntered ? "bg-[#EA4B8B]" : "bg-[#FADCEA]"
+            }`}
+          >
+            Next
+          </button>
+          <p className="text-[#9D9EA6]">
+            or <Link to={"/"}>Press RETURN</Link>
+          </p>
         </div>
-        </>
-    )
-
+      </div>
+    </div>
+  )
 }
 
+export default ProfileSetup;
