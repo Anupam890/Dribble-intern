@@ -1,0 +1,16 @@
+/* src/styles.css */
+
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+:root {
+    primary-color: #fff;
+    secondary-color: #F2D184;
+    tertiary-color: #EA4B8B;
+}
