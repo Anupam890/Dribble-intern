@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import dribble from "../components/assets/dribble.png";
+import axios from "axios";
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // You can make axios request here
+      await axios.post('http://localhost:5000/api/auth/register'); 
       console.log(formData);
     } catch (err) {
       console.error(err.response.data);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,15 +11,25 @@ const ProfileSetup = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setSelectedImage(reader.result);
-    };
+    setSelectedImage(file);
   };
 
   const handleLocationChange = (e) => {
     setIsLocationEntered(e.target.value.trim() !== "");
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("avatar", selectedImage);
+    try {
+      await axios.post("http://localhost:9080/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
 
   return (
@@ -41,7 +52,7 @@ const ProfileSetup = () => {
                 <div className="image-container w-32 h-32 rounded-full border-dotted border-[#9D9EA6] border-2 relative">
                   {selectedImage ? (
                     <img
-                      src={selectedImage}
+                      src={URL.createObjectURL(selectedImage)}
                       alt="Selected Avatar"
                       className="w-full h-full object-cover rounded-full"
                     />
@@ -83,14 +94,15 @@ const ProfileSetup = () => {
               onChange={handleLocationChange}
             />
           </div>
+
           <button
-            className={`btn py-2 px-20 rounded text-white ${
+            onClick={handleSubmit}
+            className={`btn py-2 px-20 rounded text-white cursor-pointer ${
               isLocationEntered ? "bg-[#EA4B8B]" : "bg-[#FADCEA]"
             }`}
+            disabled={!selectedImage || !isLocationEntered}
           >
-            <Link to={"next"}>
-              Next
-            </Link>
+            Next
           </button>
           <p className="text-[#9D9EA6]">
             or <Link to={"/"}>Press RETURN</Link>
@@ -98,7 +110,7 @@ const ProfileSetup = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ProfileSetup;
