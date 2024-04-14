@@ -28,7 +28,7 @@
             </div>
             <div class="location-cont mb-6">
               <h2 class="text-xl font-bold mb-2">Add your location</h2>
-              <input
+              <input 
                 type="text"
                 placeholder="Enter a location"
                 class=" border-gray-300 rounded p-2 w-full border-b-2  outline-none"
